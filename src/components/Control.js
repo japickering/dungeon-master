@@ -12,7 +12,12 @@ export default class Control extends Component {
     setTimeout(() => {
       this.setState({ active: false });
     }, 100);
-    this.$emit(this.props.type, this.props.direction);
+    if (this.props.type === 'move') {
+      this.props.move(this.props.direction);
+    } else {
+      this.props.turn(this.props.direction);
+    }
+    // this.$emit(this.props.type, this.props.direction);
   }
 
   render() {

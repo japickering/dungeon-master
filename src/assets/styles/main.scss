@@ -16,6 +16,23 @@ body {
   background: $color-black;
 }
 
+.player {
+  width: zoom(7px);
+  height: zoom(7px);
+  background-size: 100% 100%;
+}
+
+.controls {
+  position: absolute;
+  left: zoom(233px);
+  top: zoom(124px);
+  width: zoom(87px);
+  height: zoom(45px);
+  border: zoom(1px) solid $color-blue-light;
+  background: $color-blue-light;
+  cursor: pointer;
+}
+
 .list-item {
   position: relative;
   float: left;

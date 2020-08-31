@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { helpers } from '@/utils';
+import { helpers } from '../utils';
 
 export default class Player extends Component {
   render() {
@@ -9,14 +9,10 @@ export default class Player extends Component {
       player: {
         left: left,
         top: top,
-        width: '28px',
-        height: '28px',
-        backgroundSize: '100% 100%',
         backgroundImage: helpers.backgroundImage('map/player'),
         transform: helpers.transformRotate(this.props.rotation),
       },
     };
-
     return <div className='player' style={styles.player}></div>;
   }
 }
