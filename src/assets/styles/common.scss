@@ -1,0 +1,24 @@
+@function imageUrl($image) {
+  @return url('../assets/images/' + $image + '.png');
+}
+
+@function zoom($number) {
+  @return $number * $zoom;
+}
+
+$zoom: 4;
+
+$color-black: rgb(0, 0, 0);
+$color-grey-dark: rgb(73, 73, 73);
+$color-grey: rgb(109, 109, 109);
+$color-red: rgb(255, 0, 0);
+$color-orange: rgb(255, 182, 0);
+$color-yellow: rgb(255, 255, 0);
+$color-green: rgb(0, 219, 0);
+$color-blue: rgb(0, 0, 255);
+$color-blue-light: rgb(94, 205, 206);
+
+$color-champion-0: $color-green;
+$color-champion-1: $color-yellow;
+$color-champion-2: $color-red;
+$color-champion-3: $color-blue;

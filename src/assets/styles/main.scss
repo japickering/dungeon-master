@@ -1,0 +1,45 @@
+@import './common.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: $color-black;
+}
+
+.list-item {
+  position: relative;
+  float: left;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.control {
+  width: zoom(28px);
+  height: zoom(21px);
+  margin-right: zoom(1px);
+  margin-bottom: zoom(1px);
+  &:nth-child(2),
+  &:nth-child(5) {
+    width: $width - zoom(1px);
+  }
+  &:nth-child(3) {
+    margin-right: 0;
+  }
+  &:nth-child(4),
+  &:nth-child(5),
+  &:nth-child(6) {
+    margin-bottom: 0;
+  }
+}

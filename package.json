@@ -1,7 +1,9 @@
 {
   "name": "dungeon-master",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Port of the classic Dungeon Master RPG game in React.js",
+  "author": "James Pickering <james.pickering@gmail.com>",
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -30,5 +32,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "node-sass": "^4.14.1"
   }
 }
