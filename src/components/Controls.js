@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Store from '../store/'
+import Store from '../store';
 import Control from './Control';
 
 const directions = [
@@ -46,12 +46,12 @@ export default class Controls extends Component {
   render() {
     return (
       <div class='controls'>
-        <control type='turn' turn={this.turn} direction={{name: 'left', value: -1}} />
-        <control type='move' move={this.move} direction={{name: 'up', value: 0}} />
-        <control type='turn' turn={this.turn} direction={{name: 'right', value: 1}} />
-        <control type='move' move={this.move} direction={{name: 'left', value: 3}} />
-        <control type='move' move={this.move} direction={{name: 'down', value: 2}} />
-        <control type='move' move={this.move} direction={{name: 'right', value: 1}} />
+        <Control type='turn' turn={this.turn} direction={{name: 'left', value: -1}} />
+        <Control type='move' move={this.move} direction={{name: 'up', value: 0}} />
+        <Control type='turn' turn={this.turn} direction={{name: 'right', value: 1}} />
+        <Control type='move' move={this.move} direction={{name: 'left', value: 3}} />
+        <Control type='move' move={this.move} direction={{name: 'down', value: 2}} />
+        <Control type='move' move={this.move} direction={{name: 'right', value: 1}} />
       </div>
     );
   }
