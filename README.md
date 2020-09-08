@@ -1,6 +1,6 @@
-# React Dungeon Master
+# Dungeon Master port in React
 
-### Port of the classic Dungeon Master RPG game in React.js
+### Map editor based on the classic Dungeon Master RPG in React.js
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

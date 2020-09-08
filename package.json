@@ -1,7 +1,7 @@
 {
   "name": "dungeon-master",
   "version": "1.0.0",
-  "description": "Port of the classic Dungeon Master RPG game in React.js",
+  "description": "Map editor based on the classic Dungeon Master RPG in React.js",
   "author": "James Pickering <james.pickering@gmail.com>",
   "private": false,
   "dependencies": {
