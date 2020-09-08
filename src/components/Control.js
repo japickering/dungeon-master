@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { helpers, propTypes } from '../utils';
+// import { helpers, propTypes } from '../utils';
 import '../assets/styles/common.scss';
 
 export default class Control extends Component {
@@ -22,14 +22,15 @@ export default class Control extends Component {
 
   render() {
     // const { type, direction } = this.props;
-    const styles = {
-      control: {
-        backgroundImage: helpers.backgroundImage(
-          `control/control-${this.props.type}-${this.props.direction.name}${this.state.active ? '-active' : ''}`
-        ),
-      },
-    };
+    // const styles = {
+    //   control: {
+    //     backgroundImage: helpers.backgroundImage(
+    //       `control/control-${this.props.type}-${this.props.direction.name}${this.state.active ? '-active' : ''}`
+    //     ),
+    //   },
+    // };
 
-    return <div className='list-item control' style={styles.control} onClick={this.handleClick}></div>;
+    // return <div className='list-item control' style={styles.control} onClick={this.handleClick}></div>;
+    return <div className='list-item control' onClick={this.handleClick}></div>;
   }
 }

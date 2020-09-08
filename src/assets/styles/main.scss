@@ -14,6 +14,78 @@ body {
 body {
   margin: 0;
   background: $color-black;
+  color: #fff;
+  font-family: 'Roboto';
+}
+
+footer {
+  margin: 10px 20px;
+  color: $color-grey-dark;
+}
+
+.avatar {
+  border: 1px solid $color-grey-dark;
+  width: 120px;
+  height: 120px;
+}
+
+.tabs {
+  display: flex;
+  margin: 5px;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.tab {
+  flex-direction: row;
+  margin: 5px;
+}
+
+.health {
+  width: 100px;
+  background-color: $color-green;
+}
+
+.hurt {
+  width: 50px;
+  background-color: $color-red;
+}
+
+.hide {
+  display: none;
+}
+
+.map {
+  position: relative;
+  display: block;
+  padding: 10px;
+  width: 420px;
+  height: 320px;
+  border: 1px solid #fff;
+  color: #fff;
+  text-align: center;
+}
+
+.tile {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #fff;
+  background-color: #444;
+  color: #fff;
+}
+
+.wall {
+  background-color: $color-black;
+}
+
+.water {
+  background-color: $color-blue;
+}
+
+span {
+  color: #fff;
 }
 
 .player {

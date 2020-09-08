@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Store from '../store';
 import Control from './Control';
 
 const directions = [
@@ -17,7 +16,7 @@ export default class Controls extends Component {
   }
 
   move(direction) {
-    Store.moveChampions({ move: directions[direction.value].move });
+    this.props.moveChampions({ move: directions[direction.value].move });
   }
 
   turn(direction, init) {
@@ -30,13 +29,13 @@ export default class Controls extends Component {
         break;
     }
     if (init === undefined) {
-      Store.rotateChampions({ rotation: directions[0].rotate });
+      this.props.rotateChampions({ rotation: directions[0].rotate });
     }
   }
 
   created() {
     let turns = 0;
-    while (turns < directions.length && directions[0].rotate !== Store.state.rotation) {
+    while (turns < directions.length && directions[0].rotate !== Game.state.rotation) {
       this.turn({ value: 1 }, true);
       ++turns;
     }
@@ -44,13 +43,13 @@ export default class Controls extends Component {
 
   render() {
     return (
-      <div class='controls'>
-        <Control type='turn' turn={this.turn} direction={{ name: 'left', value: -1 }} />
-        <Control type='move' move={this.move} direction={{ name: 'up', value: 0 }} />
-        <Control type='turn' turn={this.turn} direction={{ name: 'right', value: 1 }} />
-        <Control type='move' move={this.move} direction={{ name: 'left', value: 3 }} />
-        <Control type='move' move={this.move} direction={{ name: 'down', value: 2 }} />
-        <Control type='move' move={this.move} direction={{ name: 'right', value: 1 }} />
+      <div className='controls'>
+        <Control className='control' type='turn' turn={this.turn} direction={{ name: 'left', value: -1 }} />
+        <Control className='control' type='move' move={this.move} direction={{ name: 'up', value: 0 }} />
+        <Control className='control' type='turn' turn={this.turn} direction={{ name: 'right', value: 1 }} />
+        <Control className='control' type='move' move={this.move} direction={{ name: 'left', value: 3 }} />
+        <Control className='control' type='move' move={this.move} direction={{ name: 'down', value: 2 }} />
+        <Control className='control' type='move' move={this.move} direction={{ name: 'right', value: 1 }} />
       </div>
     );
   }
