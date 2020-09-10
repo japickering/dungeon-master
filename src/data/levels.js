@@ -1,6 +1,6 @@
 export default [
   {
-    id: 0,
+    id: 1,
     position: { x: 1, y: 3 },
     rotation: 2,
     cells: [
