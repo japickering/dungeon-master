@@ -12,15 +12,44 @@ body {
 }
 
 body {
-  margin: 0;
   background: $color-black;
   color: #fff;
-  font-family: 'Roboto';
+  font-family: 'Roboto', Helvetica, sans-serif;
+}
+
+h3 {
+  text-transform: capitalize;
 }
 
 footer {
   margin: 10px 20px;
   color: #def;
+}
+
+.hide {
+  display: none;
+}
+
+.container {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.tabs {
+  display: flex;
+  margin: 5px;
+  align-self: flex-start;
+}
+
+.tab {
+  margin: 2px;
 }
 
 .avatar {
@@ -29,25 +58,25 @@ footer {
   height: 128px;
 }
 
-.tabs {
-  display: flex;
-  margin: 5px;
-  align-self: flex-start;
-  width: 100%;
-}
-
-.tab {
-  flex-direction: row;
-  margin: 5px;
+.active .hero-name {
+  color: goldenrod;
 }
 
 .active img {
   border: 1px solid $color-green;
 }
 
+.bar {
+  width: 100%;
+  padding: 4px;
+}
+
 .health {
-  width: 100px;
   background-color: $color-green;
+}
+
+.stamina {
+  background-color: $color-blue;
 }
 
 .hurt {
@@ -55,8 +84,10 @@ footer {
   background-color: $color-red;
 }
 
-.hide {
-  display: none;
+.sidebar {
+  display: flex;
+  flex-flow: nowrap row-reverse;
+  margin-right: 20px;
 }
 
 .map {
@@ -65,7 +96,7 @@ footer {
   padding: 10px;
   width: 420px;
   height: 320px;
-  border: 1px solid #fff;
+  border: 1px solid $color-grey-dark;
   color: #fff;
   text-align: center;
 }
@@ -99,40 +130,26 @@ span {
 }
 
 .controls {
-  position: absolute;
-  left: zoom(233px);
-  top: zoom(124px);
-  width: zoom(87px);
-  height: zoom(45px);
-  border: zoom(1px) solid $color-blue-light;
-  background: $color-blue-light;
+  display: flex;
+  flex-direction: row;
+  background: $color-black;
+  color: #fff;
   cursor: pointer;
 }
 
-.list-item {
-  position: relative;
-  float: left;
+.control {
+  border: 1px solid transparent;
+  background-color: 1px solid blue;
+  margin: 0;
+  width: 80px;
+  height: 50px;
+  text-align: center;
 
   &:last-child {
     margin-right: 0;
   }
 }
 
-.control {
-  width: zoom(28px);
-  height: zoom(21px);
-  margin-right: zoom(1px);
-  margin-bottom: zoom(1px);
-  &:nth-child(2),
-  &:nth-child(5) {
-    width: $width - zoom(1px);
-  }
-  &:nth-child(3) {
-    margin-right: 0;
-  }
-  &:nth-child(4),
-  &:nth-child(5),
-  &:nth-child(6) {
-    margin-bottom: 0;
-  }
+.control:hover {
+  background-color: 1px solid orange;
 }

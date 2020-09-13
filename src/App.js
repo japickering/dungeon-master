@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import levels from './data/levels';
 import champions from './data/champions';
-// import Controls from './components/Controls';
+import Controls from './components/Controls';
 
 const heroes = champions;
 
@@ -23,6 +23,13 @@ const styles = {
   },
 };
 
+// const directions = [
+//   { name: 'north', move: { x: 0, y: -1 }, rotate: 0 },
+//   { name: 'east', move: { x: 1, y: 0 }, rotate: 1 },
+//   { name: 'south', move: { x: 0, y: 1 }, rotate: 2 },
+//   { name: 'west', move: { x: -1, y: 0 }, rotate: 3 },
+// ];
+
 const App = () => {
   const [activeLevel, setActiveLevel] = useState(0);
   const [rotation, setRotation] = useState(levels[0].rotation);
@@ -32,13 +39,13 @@ const App = () => {
   const [tooltipText, setTooltipText] = useState('');
 
   function moveChampions(move) {
-    const position = { x: position.x + move.x, y: position.y + move.y };
+    const pos = { x: position.x + move.x, y: position.y + move.y };
     const level = levels[activeLevel];
     const xMax = level.cells[0].length - 1;
     const yMax = level.cells.length - 1;
 
-    if (position.x < 0 || position.y < 0 || position.x > xMax || position.y > yMax) return;
-    const cell = level.cells[position.y][position.x];
+    if (pos.x < 0 || pos.y < 0 || pos.x > xMax || pos.y > yMax) return;
+    const cell = level.cells[pos.y][pos.x];
     switch (cell) {
       case 0:
         return;
@@ -50,9 +57,30 @@ const App = () => {
     setPosition(position);
   }
 
+  function rotateChampions(direction) {
+    setRotation(rotation);
+  }
+
+  function moveNorth() {
+    moveChampions({ x: 0, y: -1 });
+  }
+
+  function moveSouth() {
+    moveChampions({ x: 0, y: 1 });
+  }
+
+  function moveWest() {
+    moveChampions({ x: -1, y: 0 });
+  }
+
+  function moveEast() {
+    moveChampions({ x: 1, y: 0 });
+  }
+
   function onHeroClick(event, id) {
     event.preventDefault();
     setActiveHero(id);
+    setTooltipText(heroes[id].name + ' ' + heroes[id].classType + ' level ' + heroes[id].level);
   }
 
   function hover(event, tile) {
@@ -79,55 +107,48 @@ const App = () => {
     return arr;
   }
 
+  function getAvatar(hero, isActive) {
+    return (
+      <div className={isActive ? 'active' : ''}>
+        <h3 className='hero-name'>{hero.name}</h3>
+        <img src={hero.image} className='avatar' alt='' />
+        <h4>HP</h4>
+        <h4 className='bar health' style={{ width: hero.params.health + 'px' }}>
+          {hero.params.health}
+        </h4>
+        <h4>STA</h4>
+        <h4 className='bar stamina' style={{ width: hero.params.stamina + 'px' }}>
+          {hero.params.stamina}
+        </h4>
+      </div>
+    );
+  }
+
   return (
-    <div className='App'>
+    <div className='container'>
       <nav className='nav nav-bar'>
         <div className='tabs'>
-          {activeHero === 0 && (
-            <div className='tab active' onClick={(e) => onHeroClick(e, 0)}>
-              <img src='/images/BG_16_m.png' className='avatar' alt='' />
-              <h4>{heroes[0].name}</h4>
-              <h4 className='health'>HP {heroes[0].params.health}</h4>
-              <h4 className='stamina'>STA {heroes[0].params.stamina}</h4>
-            </div>
-          )}
-          {activeHero !== 0 && (
-            <div className='tab' onClick={(e) => onHeroClick(e, 0)}>
-              <img src='/images/BG_16_m.png' className='avatar' alt='' />
-              <h4>{heroes[0].name}</h4>
-              <h4 className='health'>HP {heroes[0].params.health}</h4>
-              <h4 className='stamina'>STA {heroes[0].params.stamina}</h4>
-            </div>
-          )}
-          <div className='tab' onClick={(e) => onHeroClick(e, 1)}>
-            <img src='/images/BG_13_m.png' className='avatar' alt='' />
-            <h4>{heroes[1].name}</h4>
-            <h4 className='health'>HP {heroes[1].params.health}</h4>
-            <h4 className='stamina'>STA {heroes[1].params.stamina}</h4>
-          </div>
-          <div className='tab' onClick={(e) => onHeroClick(e, 2)}>
-            <img src='/images/BG_10_f.png' className='avatar' alt='' />
-            <h4>{heroes[2].name}</h4>
-            <h4 className='health'>HP {heroes[2].params.health}</h4>
-            <h4 className='stamina'>STA {heroes[2].params.stamina}</h4>
-          </div>
-          <div className='tab' onClick={(e) => onHeroClick(e, 3)}>
-            <img src='/images/BG_19_m.png' className='avatar' alt='' />
-            <h4>{heroes[3].name}</h4>
-            <h4 className='health'>HP {heroes[3].params.health}</h4>
-            <h4 className='stamina'>STA {heroes[3].params.stamina}</h4>
-          </div>
+          {heroes.map((hero) => {
+            return (
+              <div key={hero.id} className='tab' onClick={(e) => onHeroClick(e, hero.id)}>
+                {activeHero === hero.id && getAvatar(hero, true)}
+                {activeHero !== hero.id && getAvatar(hero, false)}
+              </div>
+            );
+          })}
         </div>
       </nav>
+      <div className='sidebar'>
+        <Controls rotation={rotation} moveChampions={moveChampions} />
+      </div>
       {/* <div className='tooltip' style={styles.tooltip}>
         <div className='center' style={styles.tooltipInner}>
           {tooltipText}
         </div>
       </div> */}
       <div className='map'>{renderMap()}</div>
-      <div className='sidebar'></div>
       <footer className='status'>
-        <h3>Dungeon Level {level}</h3>
+        <h3>Map {level}</h3>
         <p>{tooltipText}</p>
       </footer>
     </div>

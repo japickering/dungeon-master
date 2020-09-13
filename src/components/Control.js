@@ -3,9 +3,13 @@ import React, { Component } from 'react';
 import '../assets/styles/common.scss';
 
 export default class Control extends Component {
-  state = {
-    active: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      active: false,
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
 
   handleClick() {
     this.setState({ active: true });
@@ -17,11 +21,11 @@ export default class Control extends Component {
     } else {
       this.props.turn(this.props.direction);
     }
-    // this.$emit(this.props.type, this.props.direction);
+    this.$emit(this.props.type, this.props.direction);
   }
 
   render() {
-    // const { type, direction } = this.props;
+    const { type, direction } = this.props;
     // const styles = {
     //   control: {
     //     backgroundImage: helpers.backgroundImage(
@@ -31,6 +35,10 @@ export default class Control extends Component {
     // };
 
     // return <div className='list-item control' style={styles.control} onClick={this.handleClick}></div>;
-    return <div className='list-item control' onClick={this.handleClick}></div>;
+    return (
+      <div className='control' onClick={this.handleClick}>
+        {this.props.direction.name}
+      </div>
+    );
   }
 }
