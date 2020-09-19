@@ -1,60 +1,40 @@
 import React, { Component } from 'react';
-import Control from './Control';
-
-const directions = [
-  { name: 'north', move: { x: 0, y: -1 }, rotate: 0 },
-  { name: 'east', move: { x: 1, y: 0 }, rotate: 1 },
-  { name: 'south', move: { x: 0, y: 1 }, rotate: 2 },
-  { name: 'west', move: { x: -1, y: 0 }, rotate: 3 },
-];
 
 export default class Controls extends Component {
   constructor(props) {
     super(props);
-    this.move = this.move.bind(this);
-    // this.turn = this.turn.bind(this);
+    this.moveNorth = this.moveNorth.bind(this);
+    this.moveSouth = this.moveSouth.bind(this);
+    this.moveWest = this.moveWest.bind(this);
+    this.moveEast = this.moveEast.bind(this);
   }
 
-  move(direction) {
-    this.props.moveChampions({ move: directions[direction.value].move });
+  moveNorth() {
+    this.props.moveChampions({ x: 0, y: -1 });
   }
 
-  // turn(direction, init) {
-  //   switch (direction.value) {
-  //     case -1:
-  //       directions.unshift(directions.pop());
-  //       break;
-  //     case 1:
-  //       directions.push(directions.shift());
-  //       break;
-  //   }
-  //   if (init === undefined) {
-  //     this.props.rotateChampions({ rotation: directions[0].rotate });
-  //   }
-  // }
+  moveSouth() {
+    this.props.moveChampions({ x: 0, y: 1 });
+  }
 
-  created() {
-    let turns = 0;
-    while (turns < directions.length && directions[0].rotate !== this.props.rotation) {
-      this.turn({ value: 1 }, true);
-      ++turns;
-    }
+  moveWest() {
+    this.props.moveChampions({ x: -1, y: 0 });
+  }
+
+  moveEast() {
+    this.props.moveChampions({ x: 1, y: 0 });
   }
 
   render() {
     return (
       <div className='controls'>
-        {/* <Control type='turn' turn={this.turn} direction={{ name: 'left', value: -1 }} /> */}
-        {/* <Control type='turn' turn={this.turn} direction={{ name: 'right', value: 1 }} /> */}
         <div>
-          <Control type='move' move={this.move} direction={{ name: 'left', value: 3 }} />
-        </div>
-        <div>
-          <Control type='move' move={this.move} direction={{ name: 'up', value: 0 }} />
-          <Control type='move' move={this.move} direction={{ name: 'down', value: 2 }} />
-        </div>
-        <div>
-          <Control type='move' move={this.move} direction={{ name: 'right', value: 1 }} />
+          <div className='control' onClick={this.moveNorth}>
+            Up
+          </div>
+          <div className='control' onClick={this.moveSouth}>
+            Down
+          </div>
         </div>
       </div>
     );

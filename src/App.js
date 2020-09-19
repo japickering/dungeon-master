@@ -1,113 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import levels from './data/levels';
 import champions from './data/champions';
 import Controls from './components/Controls';
+import './assets/styles/main.scss';
 
-const heroes = champions;
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      level: levels[0].id,
+      activeLevel: 0,
+      rotation: levels[0].rotation,
+      position: levels[0].position,
+      activeHero: 0,
+      tooltipText: '',
+    };
+    this.moveChampions = this.moveChampions.bind(this);
+    this.onHeroClick = this.onHeroClick.bind(this);
+  }
 
-const styles = {
-  tooltip: {
-    display: 'block',
-    position: 'relative',
-    width: '300px',
-    height: '300px',
-    border: '1px solid whitesmoke',
-    backgroundColor: '#234',
-  },
-  tooltipInner: {
-    margin: '0 auto',
-    width: '50%',
-    textAlign: 'center',
-    color: '#DEF',
-    fontSize: 13,
-  },
-};
-
-// const directions = [
-//   { name: 'north', move: { x: 0, y: -1 }, rotate: 0 },
-//   { name: 'east', move: { x: 1, y: 0 }, rotate: 1 },
-//   { name: 'south', move: { x: 0, y: 1 }, rotate: 2 },
-//   { name: 'west', move: { x: -1, y: 0 }, rotate: 3 },
-// ];
-
-const App = () => {
-  const [activeLevel, setActiveLevel] = useState(0);
-  const [rotation, setRotation] = useState(levels[0].rotation);
-  const [position, setPosition] = useState(levels[0].position);
-  const [level, setLevel] = useState(levels[0].id);
-  const [activeHero, setActiveHero] = useState(0);
-  const [tooltipText, setTooltipText] = useState('');
-
-  function moveChampions(move) {
-    const pos = { x: position.x + move.x, y: position.y + move.y };
-    const level = levels[activeLevel];
+  moveChampions(move) {
+    const position = { x: this.state.position.x + move.x, y: this.state.position.y + move.y };
+    const level = levels[this.state.activeLevel];
     const xMax = level.cells[0].length - 1;
     const yMax = level.cells.length - 1;
 
-    if (pos.x < 0 || pos.y < 0 || pos.x > xMax || pos.y > yMax) return;
-    const cell = level.cells[pos.y][pos.x];
-    switch (cell) {
-      case 0:
-        return;
-      case 1:
-      case 2:
-        break;
-      default:
-    }
-    setPosition(position);
+    if (position.x < 0 || position.y < 0 || position.x > xMax || position.y > yMax) return;
+    const cell = { x: position.x, y: position.y };
+    this.setState({ position: cell });
   }
 
-  function rotateChampions(direction) {
-    setRotation(rotation);
-  }
-
-  function moveNorth() {
-    moveChampions({ x: 0, y: -1 });
-  }
-
-  function moveSouth() {
-    moveChampions({ x: 0, y: 1 });
-  }
-
-  function moveWest() {
-    moveChampions({ x: -1, y: 0 });
-  }
-
-  function moveEast() {
-    moveChampions({ x: 1, y: 0 });
-  }
-
-  function onHeroClick(event, id) {
+  onHeroClick(event, id) {
     event.preventDefault();
-    setActiveHero(id);
-    setTooltipText(heroes[id].name + ' ' + heroes[id].classType + ' level ' + heroes[id].level);
+    this.setState({
+      activeHero: id,
+      tooltipText: champions[id].name + ' ' + champions[id].classType + ' level ' + champions[id].level,
+    });
   }
 
-  function hover(event, tile) {
-    event.preventDefault();
-    setTooltipText(tile);
-  }
-
-  function renderMap() {
-    let arr = [];
-    let count = 0;
-    for (let i = 0; i < levels[0].cells.length; i++) {
-      const grid = levels[0].cells[i];
-      for (let j = 0; j < grid.length; j++) {
-        let type = grid[j] === 0 ? 'wall ' + 'tile-' + count : 'floor tile-' + count;
-        arr.push(
-          <div
-            key={count}
-            onMouseEnter={(event) => hover(event, type)}
-            className={grid[j] === 0 ? 'wall ' + 'tile tile-' + count : 'tile tile-' + count}></div>
-        );
-        count++;
-      }
-    }
-    return arr;
-  }
-
-  function getAvatar(hero, isActive) {
+  getAvatar(hero, isActive) {
     return (
       <div className={isActive ? 'active' : ''}>
         <h3 className='hero-name'>{hero.name}</h3>
@@ -124,35 +55,65 @@ const App = () => {
     );
   }
 
-  return (
-    <div className='container'>
-      <nav className='nav nav-bar'>
-        <div className='tabs'>
-          {heroes.map((hero) => {
-            return (
-              <div key={hero.id} className='tab' onClick={(e) => onHeroClick(e, hero.id)}>
-                {activeHero === hero.id && getAvatar(hero, true)}
-                {activeHero !== hero.id && getAvatar(hero, false)}
-              </div>
-            );
-          })}
-        </div>
-      </nav>
-      <div className='sidebar'>
-        <Controls rotation={rotation} moveChampions={moveChampions} />
-      </div>
-      {/* <div className='tooltip' style={styles.tooltip}>
-        <div className='center' style={styles.tooltipInner}>
-          {tooltipText}
-        </div>
-      </div> */}
-      <div className='map'>{renderMap()}</div>
-      <footer className='status'>
-        <h3>Map {level}</h3>
-        <p>{tooltipText}</p>
-      </footer>
-    </div>
-  );
-};
+  hover(event, tile) {
+    event.preventDefault();
+    this.setState({ tooltipText: tile });
+  }
 
-export default App;
+  renderMap() {
+    let arr = [];
+    let count = 0;
+    let championsOnTile = false;
+
+    for (let i = 0; i < levels[0].cells.length; i++) {
+      const grid = levels[0].cells[i];
+
+      for (let j = 0; j < grid.length; j++) {
+        let type = grid[j] === 0 ? 'wall' : 'floor';
+
+        if (this.state.position.y === j && type === 'floor') {
+          championsOnTile = true;
+        } else {
+          championsOnTile = false;
+        }
+        arr.push(
+          <div
+            key={count}
+            onMouseEnter={(event) => this.hover(event, type)}
+            className={grid[j] === 0 ? 'wall ' + 'tile tile-' + count : 'tile tile-' + count}>
+            {championsOnTile && <div>C</div>}
+          </div>
+        );
+        count++;
+      }
+    }
+    return arr;
+  }
+
+  render() {
+    return (
+      <div className='container'>
+        <nav className='nav nav-bar'>
+          <div className='tabs'>
+            {champions.map((hero) => {
+              return (
+                <div key={hero.id} className='tab' onClick={(e) => this.onHeroClick(e, hero.id)}>
+                  {this.state.activeHero === hero.id && this.getAvatar(hero, true)}
+                  {this.state.activeHero !== hero.id && this.getAvatar(hero, false)}
+                </div>
+              );
+            })}
+          </div>
+        </nav>
+        <div className='sidebar'>
+          <Controls moveChampions={this.moveChampions} />
+        </div>
+        <div className='map'>{this.renderMap()}</div>
+        <footer className='status'>
+          <h3>Map {this.state.level}</h3>
+          <p>{this.state.tooltipText}</p>
+        </footer>
+      </div>
+    );
+  }
+}
