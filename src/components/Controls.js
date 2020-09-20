@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export default class Controls extends Component {
   constructor(props) {
@@ -27,14 +27,20 @@ export default class Controls extends Component {
 
   render() {
     return (
-      <div className='controls'>
-        <div>
-          <div className='control' onClick={this.moveNorth}>
-            Up
-          </div>
-          <div className='control' onClick={this.moveSouth}>
-            Down
-          </div>
+      <div className="controls">
+        <div className="control-blank"></div>
+        <div className="control" onClick={this.moveNorth}>
+          <i class="fa fa-chevron-up"></i>
+        </div>
+        <div className="control-blank"></div>
+        <div className="control" onClick={this.moveWest}>
+          <i class="fa fa-chevron-left"></i>
+        </div>
+        <div className="control" onClick={this.moveSouth}>
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <div className="control" onClick={this.moveEast}>
+          <i class="fa fa-chevron-right"></i>
         </div>
       </div>
     );

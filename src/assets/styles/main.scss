@@ -1,4 +1,4 @@
-@import './common.scss';
+@import "./common.scss";
 
 * {
   margin: 0;
@@ -14,7 +14,7 @@ body {
 body {
   background: $color-black;
   color: #fff;
-  font-family: 'Roboto', Helvetica, sans-serif;
+  font-family: "Roboto", Helvetica, sans-serif;
 }
 
 h3 {
@@ -42,18 +42,26 @@ nav {
 .container {
   display: block;
   width: 100%;
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
+}
+
+.sidebar {
+  float: right;
 }
 
 .tabs {
   display: flex;
-  margin: 5px;
   align-self: flex-start;
+  margin: 0;
 }
 
 .tab {
   margin: 2px;
+}
+
+.party {
+  align-self: flex-end;
 }
 
 .avatar {
@@ -62,8 +70,13 @@ nav {
   height: 128px;
 }
 
-.active .hero-name {
+.hero-name {
   color: goldenrod;
+  text-transform: uppercase;
+}
+
+.active .hero-name {
+  color: yellow;
 }
 
 .active img {
@@ -71,25 +84,26 @@ nav {
 }
 
 .bar {
-  width: 100%;
-  padding: 4px;
+  display: inline-block;
+  width: 20px;
+  margin: 0 2px 0 2px;
+  padding-block-start: 90px;
 }
 
 .health {
-  background-color: $color-green;
+  background-color: $color-red;
 }
 
 .stamina {
+  background-color: $color-green;
+}
+
+.mana {
   background-color: $color-blue;
 }
 
 .hurt {
-  width: 50px;
   background-color: $color-red;
-}
-
-.sidebar {
-  float: right;
 }
 
 .map {
@@ -128,16 +142,17 @@ nav {
 }
 
 .controls {
-  display: flex;
-  flex-direction: row;
+  display: block;
+  width: 160px;
   color: #fff;
   cursor: pointer;
 }
 
 .control {
+  display: inline-block;
   margin: 1px;
   padding-top: 10px;
-  width: 100px;
+  width: 50px;
   height: 50px;
   border: 1px solid transparent;
   background-color: $color-blue-light;
@@ -148,6 +163,17 @@ nav {
   &:last-child {
     margin-right: 0;
   }
+}
+
+.control-blank {
+  display: inline-block;
+  margin: 1px;
+  padding-top: 10px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  cursor: default;
+  user-select: none;
 }
 
 .control:hover {
